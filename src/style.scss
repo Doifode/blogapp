@@ -1,0 +1,293 @@
+$lightGreen :#b9e7e7;
+
+.app {
+    display: flex;
+    justify-content: center;
+
+    .containers {
+        width: 1024px;
+
+        .auth {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: $lightGreen;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: teal;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 50px;
+            background-color: #ffffff;
+            width: 300px;
+            gap: 20px;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px solid;
+            padding: 10px;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            color: white;
+            background-color: teal;
+            padding: 10px;
+        }
+
+        .add {
+
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+
+            .content {
+                flex: 5;
+            }
+
+            .menu {
+                flex: 2;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+            }
+        }
+
+        .navBar {
+            .link {
+                text-decoration: none;
+                color: black;
+            }
+
+            .Container {
+                display: flex;
+                padding: 10px 0px;
+                justify-content: space-between;
+                align-items: center;
+
+                .logo {
+                    img {
+                        width: 120px;
+                    }
+                }
+
+                .links {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: center;
+                    align-items: center;
+
+                }
+
+                .write {
+                    background-color: $lightGreen;
+                    border-radius: 50%;
+                    height: 50px;
+                    width: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 2px white;
+
+                    &:hover {
+                        background-color: white;
+                        color: teal;
+                        border: 2px solid teal;
+                    }
+                }
+            }
+
+        }
+
+        // footer 
+
+        footer {
+            margin-top: 100px;
+            padding: 20px;
+            background-color: $lightGreen;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 300;
+
+            img {
+                width: 50px;
+            }
+        }
+
+        // home 
+
+        .home {
+            .posts {
+
+                margin-top: 50px;
+                display: flex;
+                flex-direction: column;
+                gap: 150px;
+            }
+
+            .post {
+                display: flex;
+                gap: 10px;
+
+                &:nth-child(2n+1) {
+                    flex-direction: row-reverse;
+                }
+
+
+                .img {
+                    flex: 2;
+                    position: relative;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        height: 100%;
+                        width: 100%;
+                        background-color: $lightGreen;
+                        top: 20px;
+                        left: -20px;
+                        z-index: -1;
+                    }
+
+                    img {
+                        width: 100%;
+                        max-height: 400px;
+                        object-fit: cover;
+                    }
+                }
+
+                .content {
+                    flex: 3;
+
+                    h1 {
+                        font-size: 38px;
+                    }
+
+                    p {
+                        font-size: 18px;
+                    }
+
+                    .btn {
+                        width: max-content;
+                        padding: 10px 20px;
+                        border: 1px solid teal;
+                        cursor: pointer;
+                        background-color: white;
+                        color: teal;
+
+                        &:hover {
+                            border: 1px solid white;
+                            background-color: $lightGreen;
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+
+        // single  page
+
+        .single {
+            display: flex;
+            gap: 50px;
+
+
+            .content {
+                flex: 5;
+                flex-direction: column;
+                gap: 30px;
+
+                img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 300px;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-style: 14px;
+
+                    img {
+                        object-fit: cover;
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 50%;
+                    }
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+
+                .edit {
+                    font-size: 20px;
+                    display: flex;
+                    gap: 10px;
+
+                }
+            }
+
+            p {
+                text-align: justify;
+                line-height: 30px;
+            }
+
+            .menu {
+                display: flex;
+                flex-direction: column;
+                flex: 2;
+                gap: 50px;
+
+                .btn {
+                    width: max-content;
+                    padding: 7.5px 20px;
+                    border: 1px solid teal;
+                    cursor: pointer;
+                    background-color: white;
+                    color: teal;
+
+                    &:hover {
+                        border: 1px solid white;
+                        background-color: $lightGreen;
+                    }
+
+                    .post {
+                        display: flex;
+                        flex-direction:
+                            column;
+                        gap: 30px;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.h_300 {
+    height: 300px;
+}
+.link{
+    text-decoration: underline;
+}
