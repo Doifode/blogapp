@@ -12,7 +12,7 @@ const Register = () => {
   const RegisterUser = async (values) => {
     try {
       const res = await axios.post("http://localhost:2304/api/auth/register", values)
-      console.log(res, "responxe")
+      console.log(res, "response")
       toast.success(res.data);
       navigate("/login")
 

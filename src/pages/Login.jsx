@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
-import axios from "axios";
 import { loginVal } from '../helpers/Helper';
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,15 +14,18 @@ const Login = () => {
 
   const LoginUser = async (values) => {
     const data = await login(values);
+    console.log('errr', data)
+
     try {
-      if (data) {
+      if (data?.status) {
         toast.success("Login successfully.");
         sessionStorage.setItem("access_token", data?.token)
         navigate("/")
       }
+      if (!data.status) return toast.error(data?.message)
+
     } catch (error) {
-      console.log(error)
-      toast.error(error.response.data)
+      toast.error(error?.response?.data)
     }
 
   }
@@ -49,7 +51,7 @@ const Login = () => {
           <span className='text-center'>
             <small >Don't you have an account? <Link to={"/register"}> Register</Link> </small>
           </span>
-          <button type="submit" className='btn'>Submit</button>
+          <button type="submit" className='btn'>Login</button>
         </Form>
       )}
     </Formik>

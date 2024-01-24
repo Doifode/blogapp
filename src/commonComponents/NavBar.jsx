@@ -18,9 +18,8 @@ const NavBar = () => {
                     <h6><Link className='link' to="/?cat=Cinema">Cinema</Link></h6>
                     <h6><Link className='link' to="/?cat=Science">Science</Link></h6>
                     <h6><Link className='link' to="/?cat=art">Art</Link></h6>
-
                     <span> {currentUser?.username}</span>
-                    <span>{currentUser ? <span onClick={logout} className='cursor_pointer'> LogOut</span> : <Link className='link' to={"/login"}>Login</Link>} </span>
+                    <span>{currentUser ? <span onClick={logout} className='cursor_pointer'> <Link className='link' to={"/login"}>LogOut</Link></span> : <Link className='link' to={"/login"}>Login</Link>} </span>
                     <span className='write' >  <Link className='link' to={"/write"}>Write</Link></span>
                 </div>
             </div>
