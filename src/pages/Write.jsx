@@ -65,18 +65,22 @@ const Write = () => {
   }
 
   useEffect(() => {
-    getPostForEdit();
+    if (editValue) {
+      getPostForEdit()
+    }
+
+
   }, [editValue])
   const submit = async (val) => {
 
     if (imageFile) {
       console.log(imageFile)
       const formdata = new FormData();
-      formdata.append("file", imageFile)
-      formdata.append("title", val.title)
-      formdata.append("cat", val.cat)
-      formdata.append("user_id", currentUser.id)
-      formdata.append("desc", value)
+      formdata.append("file", imageFile);
+      formdata.append("title", val.title);
+      formdata.append("cat", val.cat);
+      formdata.append("user_id", currentUser.id);
+      formdata.append("desc", value);
       try {
         const response = await axios.post("http://localhost:2304/api/post/addPost", formdata, {
           headers: {
@@ -183,7 +187,7 @@ const Write = () => {
           </div>
           <div className="d-flex justify-content-start ">
             <input onChange={handleChange} onBlur={handleBlur}
-              type="radio" name='cat' className='mx-1'
+              type="radio" checked={values.cat === "food"} name='cat' className='mx-1'
               id='food' value="food" />
             <label htmlFor="food"> Food</label>
           </div>
