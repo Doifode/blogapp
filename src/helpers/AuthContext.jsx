@@ -3,19 +3,19 @@ import axios from 'axios';
 
 export const Context = createContext()
 
-
 const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+    // LOGIN FUNCTION THAT WILL PROVIDE TO EVERY COMPONENT
     const login = async (values) => {
         try {
             const res = await axios.post("http://localhost:2304/api/auth/Login", values)
             setCurrentUser(res.data);
             return res.data
-
         } catch (error) {
             return error.response.data
         }
     }
+
     const logout = async () => {
         setCurrentUser(null);
     }

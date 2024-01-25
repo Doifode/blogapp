@@ -6,36 +6,32 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../helpers/AuthContext';
 
 
-
+//LOGIN PAGE 
 const Login = () => {
 
-  const { login } = useContext(Context)
-  const navigate = useNavigate()
+  const { login } = useContext(Context); // DESTRUCTURING THE LOGIN FUNCTION FORM CONTEXT
+  const navigate = useNavigate();
 
   const LoginUser = async (values) => {
+
     const data = await login(values);
-    console.log('errr', data)
 
-    try {
-      if (data?.status) {
-        toast.success("Login successfully.");
-        sessionStorage.setItem("access_token", data?.token)
-        navigate("/")
-      }
-      if (!data.status) return toast.error(data?.message)
-
-    } catch (error) {
-      toast.error(error?.response?.data)
+    if (data?.status) {
+      toast.success("Login successfully."); // SUCCESS TOAST MESSAGE 
+      sessionStorage.setItem("access_token", data?.token) // SETTING TOKEN IN SESSION STORAGE
+      navigate("/") // AFTER LOGIN SENDING TO HOME PAGE
+      if (!data.status) return toast.error(data?.message) // ERROR MESSAGE TOASTER
     }
-
   }
-  return <div className='auth shadow-sm border  '>
+
+  return (<div className='auth shadow-sm border '>
     <h1>Login User</h1>
     <Formik
       initialValues={{ username: "", password: "" }}
-      onSubmit={(values) => {
-        LoginUser(values)
-      }}
+      onSubmit={
+        (values) => {
+          LoginUser(values)
+        }}
       validationSchema={loginVal}
     >
       {() => (
@@ -55,8 +51,6 @@ const Login = () => {
         </Form>
       )}
     </Formik>
-  </div>
+  </div>)
 }
-
-
 export default Login

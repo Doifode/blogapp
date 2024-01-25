@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { BiPencil } from "react-icons/bi";
 import { BiSolidTrash } from "react-icons/bi";
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Context } from '../helpers/AuthContext';
 import { toast } from 'react-toastify';
 import Menu from "../commonComponents/Menu"
 import axios from 'axios';
 
 const Single = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // TAKING ID FROM URL
+  const { currentUser } = useContext(Context); // TAKING USER OBJECT FROM CONTEXT
+  const [isDeleted, setIsDeleted] = useState(false); // // POST DELETION CHECK 
+  const [post, setPost] = useState(); // SETTING POST DATA 
 
-  const { currentUser } = useContext(Context);
-  const [isDeleted, setIsDeleted] = useState(false);
-  const [post, setPost] = useState();
-
+  // TO GET SINGLE POST TO SEE DETAILS
   const getOnePost = async () => {
     try {
       const data = await axios.get(`http://localhost:2304/api/post/${id}`);
@@ -21,13 +21,13 @@ const Single = () => {
     } catch (error) {
       console.log(error);
     }
-
   }
 
   useEffect(() => {
     getOnePost()
   }, [])
 
+  //DELETE POST API
   const deletePost = async (id) => {
     const body = {
       postId: id,
@@ -42,11 +42,11 @@ const Single = () => {
       } else {
         toast.error(data.data?.message)
       }
-
     } catch (error) {
       console.log(error)
     }
   }
+
   return (
     <div className='single'>
       {!isDeleted ?
@@ -66,8 +66,6 @@ const Single = () => {
             </div>
           </div>
           <div dangerouslySetInnerHTML={{ __html: post?.desc }} />
-
-
         </div> : <h3 className='text-center py-2'> No post</h3>}
       <div className="menu">
         <Menu cat={post?.cat} />

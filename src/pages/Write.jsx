@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from "formik"
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"
-import axios from 'axios';
 import { Context } from '../helpers/AuthContext';
 import { addPost } from '../helpers/Helper';
-import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"
+
 
 const Write = () => {
+
   const [value, setValue] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const { currentUser } = useContext(Context);
+  const [imageFile, setImageFile] = useState(null); //SELECT IMAGE FILE STATE
+  const { currentUser } = useContext(Context); //USER OBJECT FROM CONTEXT
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const editValue = queryParams.get('edit');
+  const editValue = queryParams.get('edit'); // POST ID FOR EDIT 
 
   const { handleChange, handleBlur, handleSubmit, setFieldValue, errors, values } = useFormik({
     initialValues: {
@@ -24,7 +26,6 @@ const Write = () => {
       desc: "",
       post_img: ""
     },
-
     validationSchema: addPost,
     onSubmit: val => {
       if (!editValue) { submit(val) } else {
@@ -32,6 +33,7 @@ const Write = () => {
       }
     }
   });
+  // CALLING UPDATE API FOR POST
   const updatePost = async (val) => {
     const formdata = new FormData();
     formdata.append("file", imageFile)
@@ -47,9 +49,18 @@ const Write = () => {
         "Content-Type": 'form-data'
       }
     })
-    if (response.data.status) { toast.success(response.data.message) }
+
+    if (response.data.status) {
+      toast.success(response.data.message)
+      setTimeout(() => {
+        navigate("/")
+      }, 500);
+    }
+    if (!response.data.status) return toast.error(response.data.message)
+
   }
 
+  // GET POSTBYID API FOR BINDING WITH INPUTS
   const getPostForEdit = async () => {
     try {
       const data = await axios.get(`http://localhost:2304/api/post/${editValue}`);
@@ -68,11 +79,10 @@ const Write = () => {
     if (editValue) {
       getPostForEdit()
     }
-
-
   }, [editValue])
-  const submit = async (val) => {
 
+  // ADD POST API FUNCTION
+  const submit = async (val) => {
     if (imageFile) {
       console.log(imageFile)
       const formdata = new FormData();
@@ -95,21 +105,19 @@ const Write = () => {
             navigate("/")
           }, 500);
         }
-
         if (!response.data.status) return toast.error(response.data.message)
-
       } catch (error) {
         console.error('Error uploading image:', error);
       }
     }
   };
 
-
+  // ON EDIT INPUT BOX CHANGE VALUE SETTING TO STATE
   const getDescription = (e) => {
     setValue(e)
     setFieldValue('desc', e)
   }
-
+  // TO SET IMAGE FILE TO STATE 
   const handleFileChange = (event) => {
     setImageFile(event.target.files[0]);
     setFieldValue('post_img', event.target.files[0]);
@@ -120,13 +128,16 @@ const Write = () => {
       <div className="content">
         <input name='title' value={values.title} placeholder="Write title"
           onChange={handleChange} onBlur={handleBlur}
-          type="text" className='  form-control border my-3' />
+          type="text" className='  form-control border my-3'
+        />
         <small className='text-danger' > {errors.title}</small>
+
         <div className="editcontainer h_300 border-0">
           <ReactQuill placeholder='Write post description' className='h-100 w-100' name="desc"
             value={value} onChange={getDescription} theme='snow' />
         </div>
         <small className='text-danger'>{errors.desc}</small>
+
       </div>
 
       <div className="menu">
@@ -138,14 +149,31 @@ const Write = () => {
               <b>Visibility</b>Public
             </span>
           </div>
-          <input onChange={handleFileChange} accept='image/*' className='d-none' type="file" id='file' name='post_img' />
-          <label htmlFor="file" className={!errors.post_img ? "cursor_pointer link" : "text-danger cursor_pointer link"}   >Upload File {!errors.post_img ? "" : <small>Select picture please.</small>}</label>
+
+          <input onChange={handleFileChange}
+            accept='image/*'
+            className='d-none' type="file" id='file'
+            name='post_img'
+          />
+
+          <label htmlFor="file" className={!errors.post_img ? "cursor_pointer link"
+            : "text-danger cursor_pointer link"}
+          >Upload File {!errors.post_img ? "" :
+            <small>Select picture please.
+            </small>}
+          </label>
           <br />
+
           <div className="buttons d-flex justify-content-between">
-            <button className='btn btn-sm  my-1 btn-primary' onClick={handleSubmit} type='submit'>
+
+            <button className='btn btn-sm  my-1 btn-primary'
+              onClick={handleSubmit} type='submit'>
               Upload Blog
             </button>
-            <button className='btn btn-sm  my-1 btn-success'>Update</button>
+
+            <button className='btn btn-sm  my-1 btn-success'>
+              Update
+            </button>
           </div>
         </div>
 
@@ -185,6 +213,7 @@ const Write = () => {
               id='cinema' checked={values.cat === "cinema"} value="cinema" />
             <label htmlFor="cinema"> Cinema</label>
           </div>
+
           <div className="d-flex justify-content-start ">
             <input onChange={handleChange} onBlur={handleBlur}
               type="radio" checked={values.cat === "food"} name='cat' className='mx-1'

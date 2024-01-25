@@ -18,3 +18,6 @@ export const addPost = Yup.object().shape({
     post_img: Yup.string().required()
 
 })
+
+
+export const categoryArray = ['Food', "Design", "Technology", "Cinema", "Science", "Art", "Home", "MyPosts"]
