@@ -12,15 +12,15 @@ const Home = () => {
   const cat = location.search   // taking category type from params
 
   const getAllPost = async () => {
-    const category = cat == "?cat=MyPosts" ? "" : cat
+    const category = cat === "?cat=MyPosts" ? "" : cat
 
     const datasss = await axios.get(`http://localhost:2304/api/post/${category}`);
 
-    if (cat == "?cat=MyPosts" && datasss.data) {
+    if (cat === "?cat=MyPosts" && datasss.data) {
       const data = datasss?.data?.filter((i) => i.user_id === currentUser.id);
       setPosts(data);
     } else {
-      setPosts(datasss.data) // setting api response 
+      setPosts(datasss.data) // SETTING POST DATA IN STATE 
     }
   }
 

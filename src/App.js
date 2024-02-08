@@ -9,6 +9,7 @@ import Write from "./pages/Write"
 import Login from './pages/Login';
 import "./style.scss";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import VerifyEmail from './pages/VerifyEmail';
 
 const Layout = () => {
   // layout component  that will work as router space  
@@ -51,6 +52,11 @@ function App() {
     {
       path: "/login",
       element: <Login />
+
+    },
+    {
+      path: "/verifyemail/:id",
+      element: <VerifyEmail />
 
     }
   ])

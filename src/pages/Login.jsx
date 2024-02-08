@@ -17,10 +17,12 @@ const Login = () => {
     const data = await login(values);
 
     if (data?.status) {
-      toast.success("Login successfully."); // SUCCESS TOAST MESSAGE 
+      toast.success(data.message); // SUCCESS TOAST MESSAGE 
       sessionStorage.setItem("access_token", data?.token) // SETTING TOKEN IN SESSION STORAGE
       navigate("/") // AFTER LOGIN SENDING TO HOME PAGE
       if (!data.status) return toast.error(data?.message) // ERROR MESSAGE TOASTER
+    } else if (!data.status) {
+      toast.error(data.message)
     }
   }
 
