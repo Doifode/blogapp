@@ -12,10 +12,10 @@ export const loginVal = Yup.object().shape({
 })
 
 export const addPost = Yup.object().shape({
-    title: Yup.string().required(),
-    cat: Yup.string().required(),
-    desc: Yup.string().required(),
-    post_img: Yup.string().required()
+    title: Yup.string().required("Please enter title."),
+    cat: Yup.string().required("Please select category."),
+    desc: Yup.string().required("Pleae write description."),
+    post_img: Yup.string().required("Please select image related to blog.")
 
 })
 

@@ -6,8 +6,13 @@ const Menu = ({ cat }) => {
 
 
   const getAllPost = async () => {
-    const posts = await axios.get(`http://localhost:2304/api/post?cat=${cat}`);
-    setPosts(posts.data)
+    try {
+      const posts = await axios.get(`http://localhost:2304/api/post?cat=${cat}`);
+      setPosts(posts.data)
+
+    } catch (error) {
+      console.log(error)
+    }
   }
   useEffect(() => {
     getAllPost()

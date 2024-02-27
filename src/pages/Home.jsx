@@ -14,13 +14,17 @@ const Home = () => {
   const getAllPost = async () => {
     const category = cat === "?cat=MyPosts" ? "" : cat
 
-    const datasss = await axios.get(`http://localhost:2304/api/post/${category}`);
+    try {
+      const PostList = await axios.get(`http://localhost:2304/api/post/${category}`);
 
-    if (cat === "?cat=MyPosts" && datasss.data) {
-      const data = datasss?.data?.filter((i) => i.user_id === currentUser.id);
-      setPosts(data);
-    } else {
-      setPosts(datasss.data) // SETTING POST DATA IN STATE 
+      if (cat === "?cat=MyPosts" && PostList.data) {
+        const data = PostList?.data?.filter((i) => i.user_id === currentUser.id);
+        setPosts(data);
+      } else {
+        setPosts(PostList.data) // SETTING POST DATA IN STATE 
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
