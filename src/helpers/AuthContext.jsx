@@ -10,9 +10,9 @@ const AuthContextProvider = ({ children }) => {
         try {
             const res = await axios.post("http://localhost:2304/api/auth/Login", values)
             setCurrentUser(res.data);
-            return res.data
+            return res?.data
         } catch (error) {
-            return error.response.data
+            return error
         }
     }
 
